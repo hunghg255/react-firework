@@ -1,14 +1,14 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import songMp3 from '@/assets/song.mp3';
 import bum from '@/assets/bum.mp3';
 
 const Firework = () => {
   const refCanvas: any = useRef();
   const refCvs: any = useRef();
+  const [start, setStart] = useState(false);
 
   useEffect(() => {
     initBg();
-    initFireWork();
   }, []);
 
   const initBg = () => {
@@ -49,8 +49,6 @@ const Firework = () => {
   };
 
   const initFireWork = () => {
-    var songMp3Audio = new Audio(songMp3);
-
     const c = refCanvas.current;
     const ctx = c.getContext('2d');
 
@@ -184,10 +182,15 @@ const Firework = () => {
       requestAnimationFrame(Run);
     }
 
-    setTimeout(() => {
-      songMp3Audio?.play();
-      Run();
-    }, 2000);
+    Run();
+  };
+
+  const onStart = () => {
+    var songMp3Audio = new Audio(songMp3);
+    songMp3Audio.play();
+
+    initFireWork();
+    setStart(true);
   };
 
   return (
@@ -195,6 +198,12 @@ const Firework = () => {
       <canvas ref={refCanvas} id='Canvas'></canvas>
 
       <canvas ref={refCvs} id='cvs'></canvas>
+
+      {!start && (
+        <button className='btn' onClick={onStart}>
+          Click
+        </button>
+      )}
     </>
   );
 };
