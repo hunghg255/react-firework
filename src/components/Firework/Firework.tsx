@@ -113,7 +113,7 @@ const Firework = () => {
         pas.xoff = s * Math.sin((5 - a) * (Math.PI / 2));
         pas.yoff = s * Math.sin(a * (Math.PI / 2));
 
-        pas.color = shell.color;
+        pas.color = colors[Math.floor(Math.random() * colors.length)];
         pas.size = Math.sqrt(shell.size);
 
         if (pass.length < 1000) {
@@ -201,7 +201,7 @@ const Firework = () => {
 
       {!start && (
         <button className='btn' onClick={onStart}>
-          Click
+          Happy New Year
         </button>
       )}
     </>
